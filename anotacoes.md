@@ -196,6 +196,9 @@ for (let i = 0; i < scores.length; i++){
 
 #### Switch
 
+
+- O switch utiliza comparação estrita ===
+
 - const grade = 'D';
 
 switch(grade){
@@ -221,7 +224,144 @@ switch(grade){
         console.log('e');
 
     default:
-    
+
         console.log('padrão');
     
 }
+
+#### Variable and block scope
+
+- se utilizarmos var (em vez de let ou const) não é respeitado o escopo.
+
+let age = 40; escopo global
+
+if(age > 30){
+
+    let age = 22; escopo local
+    
+    //é possível pq está em escopo diferente
+
+}
+
+
+### Funções
+
+- function declaration
+
+function greet(){
+
+    console.log('Olá');
+
+}
+
+- function expression
+
+greet();
+
+- armazenar funções em variáveis
+- function expression
+
+const speak = function(){
+
+    console.log("oi");
+
+};
+
+speak();
+
+Understanding Hoisting in JavaScript
+
+https://www.digitalocean.com/community/tutorials/understanding-hoisting-in-javascript
+
+
+- passando valores na função
+
+const speak(name){
+
+    console.log(`good day ${name}`);
+
+}
+
+speak('mario');
+
+
+
+- valores padrão
+
+const speak(name = 'luigi', time = 'night'){
+
+    console.log(`good ${time} ${name}`);
+
+}
+
+speak('mario', 'day');
+
+
+
+##### Retuning values
+
+const calcArea = function(radius){
+
+    let area = 3.14 * radius**2;
+
+    return area;
+}
+
+const area = calcArea(4);
+
+
+### Arrow function 
+
+
+const calcArea = (radius) => {
+
+    return 3.14 * radius**2;
+
+};
+
+- =====================================
+
+
+const calcArea = radius => 3.14 * radius**2;
+
+
+- =====================================
+
+##### Functions vs Methods
+
+- functions
+    - function()
+- Methods
+    - dot notation
+    - name.toUpperCase()
+    - Funções associadas a um objecto / data type
+
+
+
+#### callbacks and foreach
+
+- Passar uma função como argumento -> callback function
+
+const myFun = (callbackFunc) => {
+
+    let value = 2;
+
+    callbackFunc(value);
+
+}
+
+myFun(function(value){
+
+    console.log(value);
+
+});
+
+- ======================================================
+
+let people = ['mario','luigi','riu','shaun','chun-li'];
+
+people.forEach((person, index) => {
+
+    console.log(person);
+
+});
