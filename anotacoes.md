@@ -118,19 +118,24 @@ Alguns navegadores antigos podem não reconhecer 'const' e 'let'
 - Strings de tamanho maior que 0 são true e string vazia é false
 
 #### For
+~~~javascript
 
 for(let i = 0; i < 4; i++){
     console.log(i);
 }
 
-- const names = ['shaun', 'mario', 'luigi'];
+const names = ['shaun', 'mario', 'luigi'];
 
 for (let i = 0; i < names.length; i++){
     console.log(names[i]);
 }
-
+~~~
 #### while
-- let i = 0;
+
+
+~~~javascript
+
+let i = 0;
 while(i<5){
 
     console.log(i);
@@ -138,23 +143,31 @@ while(i<5){
     i++;
 }
 
-##### do while
+~~~
 
-- let i = 5;
+##### do while
+~~~javascript
+
+ let i = 5;
 do{
     console.log(i);
     i++;
 
 }while(i < 5);
-
+~~~
 #### if
-- let age = 20;
+
+~~~javascript
+
+let age = 20;
 
 if (age > 3){
     console.log('maior que 3');
 }
-
+~~~
 #### else if
+
+~~~javascript
 
 const password = 'p@ss';
 
@@ -167,7 +180,7 @@ else if (password.length >= 6){
 else{
     console.log('curta');
 }
-
+~~~
 #### Logical operators
 
 - or ||
@@ -176,6 +189,7 @@ else{
     - console.log(!false); vai ser true
 
 #### Break and continue
+~~~javascript
 
 - const scores = [51, 23, 2, 23, 100, 10];
 
@@ -192,9 +206,10 @@ for (let i = 0; i < scores.length; i++){
     }
 
 }
-
+~~~
 
 #### Switch
+~~~javascript
 
 
 - O switch utiliza comparação estrita ===
@@ -228,10 +243,11 @@ switch(grade){
         console.log('padrão');
     
 }
-
+~~~
 #### Variable and block scope
 
 - se utilizarmos var (em vez de let ou const) não é respeitado o escopo.
+~~~javascript
 
 let age = 40; escopo global
 
@@ -242,24 +258,30 @@ if(age > 30){
     //é possível pq está em escopo diferente
 
 }
+~~~
 
 
 ### Funções
 
 - function declaration
+~~~javascript
 
 function greet(){
 
     console.log('Olá');
 
 }
+~~~
 
 - function expression
+~~~javascript
 
 greet();
+~~~
 
 - armazenar funções em variáveis
 - function expression
+~~~javascript
 
 const speak = function(){
 
@@ -268,6 +290,8 @@ const speak = function(){
 };
 
 speak();
+~~~
+
 
 Understanding Hoisting in JavaScript
 
@@ -275,6 +299,7 @@ https://www.digitalocean.com/community/tutorials/understanding-hoisting-in-javas
 
 
 - passando valores na função
+~~~javascript
 
 const speak(name){
 
@@ -284,9 +309,12 @@ const speak(name){
 
 speak('mario');
 
+~~~
 
 
 - valores padrão
+~~~javascript
+
 
 const speak(name = 'luigi', time = 'night'){
 
@@ -295,10 +323,11 @@ const speak(name = 'luigi', time = 'night'){
 }
 
 speak('mario', 'day');
-
+~~~
 
 
 ##### Retuning values
+~~~javascript
 
 const calcArea = function(radius){
 
@@ -308,9 +337,10 @@ const calcArea = function(radius){
 }
 
 const area = calcArea(4);
-
+~~~
 
 ### Arrow function 
+~~~javascript
 
 
 const calcArea = (radius) => {
@@ -318,7 +348,7 @@ const calcArea = (radius) => {
     return 3.14 * radius**2;
 
 };
-
+~~~
 - =====================================
 
 
@@ -341,7 +371,7 @@ const calcArea = radius => 3.14 * radius**2;
 #### callbacks and foreach
 
 - Passar uma função como argumento -> callback function
-
+~~~javascript
 const myFun = (callbackFunc) => {
 
     let value = 2;
@@ -355,8 +385,10 @@ myFun(function(value){
     console.log(value);
 
 });
+~~~
 
 - ======================================================
+~~~javascript
 
 let people = ['mario','luigi','riu','shaun','chun-li'];
 
@@ -366,6 +398,7 @@ people.forEach((person, index) => {
 
 });
 
+~~~
 
 #### Objetos 
 
@@ -409,6 +442,7 @@ let user = {
 ~~~
 - se a função logBlogs fosse uma arrow function, o js não associaria o this como o objeto;
 - o 'this' terá o valor de onde ele será chamado (global window object)
+~~~javascript
 
 user.login();
 
@@ -429,6 +463,7 @@ const key = 'name';
 
 console.log(user[key]);
 
+~~~
 
 
 #### Math object
@@ -450,4 +485,60 @@ console.log(user[key]);
     - arrays
     - functions
     - dates
+
+- A diferença entre eles é em como são armazenados na memória
+
+- Stack vs heap
+    - Primitives são armazenados na stak que é menor e mais rápida
+    - Reference são armezandos na heap
+
+- Cópias de um primitivo copiam o valor
+- Cópias de um reference copiam o ponteiro
+
+
+
+## The document object model
+
+- DOM
+    - Created by the browser
+
+##### Query selector
+
+
+- Vai pegar a primeira tag < p >
+~~~javascript
+
+const para = document.querySelector('p');
+
+~~~
+
+- Pegar por classe < p class="error"  > texto < /p >
+~~~javascript
+
+const para = document.querySelector('.error');
+
+~~~
+
+- Se tivermos duas tags com mesma classe e quisermos pegar só a div
+    - < p class="error"  > texto < /p >
+    - < div class="error"  > texto < /div >
+~~~javascript
+
+const para = document.querySelector('div.error');
+
+~~~
+
+- Pegar todas as tags < p >
+    - Retorna uma Nodelist (difente de um array) 
+~~~javascript
+
+const paras = document.querySelectorAll('p');
+
+paras.forEach(para => {
+    console.log(para);
+});
+
+console.log(paras[1]);
+
+~~~
 
