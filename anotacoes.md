@@ -365,3 +365,89 @@ people.forEach((person, index) => {
     console.log(person);
 
 });
+
+
+#### Objetos 
+
+- Object literal notation
+~~~javascript
+let user = {
+
+    name: 'crystal',
+
+    age: 23,
+
+    email: 'email@mail.com',
+
+    location: 'berlin',
+
+    blogs: [
+        {titulo: 'titulo1', likes: 23},
+        {titulo: 'titulo2', likes: 33}
+    ],
+
+    login: function(){
+
+        console.log('o usuario entrou');
+
+    },
+
+    logout: function(){
+
+        console.log('o usuario saiu');
+
+    },
+
+    logBlogs: function(){
+        console.log('this user has written the following blogs: ');
+        this.blogs.forEach(blog => {
+            console.log(blog.titulo, blog.likes);
+        });
+    }
+
+};
+~~~
+- se a função logBlogs fosse uma arrow function, o js não associaria o this como o objeto;
+- o 'this' terá o valor de onde ele será chamado (global window object)
+
+user.login();
+
+console.log(user);
+
+console.log(user.name);
+
+user.age = 34;
+
+console.log(user.age);
+
+console.log(user['name']);
+
+user['name'] = 'john';
+
+
+const key = 'name';
+
+console.log(user[key]);
+
+
+
+#### Math object
+
+- Math
+- Math.PI
+- Math.E
+- Math.round(numero) arredonda para o inteiro mais próximo
+- Math.floor(numero) arredonda para baixo
+- Math.ceil(numero) arredonda para cima
+- Math.random(); Número aleatório entre 0 e 1
+
+
+#### Primitive vs reference types
+
+- Primitive são numbers, strings, boobleans, null, undefinded, symbols
+- Reference types são todos os tipos de objetos
+    - object literals
+    - arrays
+    - functions
+    - dates
+
