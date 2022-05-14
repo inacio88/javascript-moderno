@@ -542,3 +542,179 @@ console.log(paras[1]);
 
 ~~~
 
+- Pegar um elemento pela id
+    - < h1 id="page-title" > titulo </ h1 >
+
+~~~javascript
+
+const title = document.getElementById('page-title');
+console.log(title);
+~~~
+
+- Pegar um elemento pelo nome da classe
+    - < p class="error" > titulo </ p >
+    - se tiver multiplos elementos da classe, vai pegar todos.
+    - Retorna um html colection
+
+~~~javascript
+
+const errors = document.getElementsByClassName('error');
+console.log(erros);
+console.log(erros[0]);
+~~~
+
+
+- Pegar um elemento pela tag name
+    - < p > titulo </ p >
+    - Retorna html colections
+
+~~~javascript
+
+const paras = document.getElementByTagName('p');
+console.log(paras);
+~~~
+
+
+#### Adding and changing page content
+
+- O HTML
+~~~html
+
+<div>
+    <p>oi1</p>
+    <p>oi2</p>
+    <p class="error">oi3</p>
+</div>
+
+<div class="content">
+    <p>oi4</p>
+</div>
+
+~~~
+
+- Pegar o primeiro < p >
+- Pegar o texto dentro da tag
+
+~~~javascript
+const para = document.querySelector('p');
+console.log(para.innerText);
+
+para.innerText = 'oiModificado';
+~~~
+
+- Pegar todas as tag < p >
+
+~~~javascript
+const paras = document.querySelectorAll('p');
+paras.forEach(para => {
+    console.log(para.innerText);
+    para.innerText += "Texto adicional";
+});
+~~~
+
+- Mudar o html dentro de um elemento
+
+~~~javascript
+const content = document.querySelector('.content');
+
+content.innerHTML += '<h2> Este é um novo elemento </h2>';
+
+const pessoas = ['mario', 'luigi', 'yoshi'];
+pessoas.forEach(pessoa =>{
+    content.innerHTML += `<p> ${pessoa} </p>`;
+});
+
+~~~
+
+### Getting and setting attributes
+
+- HTML
+~~~html
+<h1> The DOM </h1>
+
+<a href="https://www.google.com"> Link </a>
+<p class="error"> oioi </p>
+
+~~~
+- Mudando o link do href
+~~~javascript
+const link = document.querySelector('a');
+console.log(link.getAttribute('href'));
+link.setAttribute('href','https://www.bing.com');
+link.innerText = 'Link modificado';
+~~~
+
+- Mudando a classe do < p >
+
+~~~javascript
+const mssg = document.querySelector('p');
+console.log(mssg.getAttribute('class'));
+mssg.setAttribute('class','success');
+mssg.innerText = 'oioi modificado';
+
+// Se não tiver o atributo, ele será criado.
+mssg.setAttribute('style','color: greenbn');
+~~~
+
+
+
+#### Adding and removing styles
+
+- HTML
+~~~html
+<h1 style="color: orange;"> Título </h1>
+~~~
+
+- Alterar o style e não sobrescrever:
+
+~~~javascript
+const title = document.querySelector('h1');
+console.log(title.style);
+console.log(title.style.color);
+
+title.style.margin = '50px';
+title.style.color = 'blue';
+title.style.fontSize = '60px';
+
+//Remover um atributo
+title.style.margin = '';
+~~~
+
+#### Adding and removing classes
+
+- HTML
+~~~html
+<h1> Título </h1>
+<p class="error">
+    Texto Texto Texto Texto Texto Texto Texto Texto Texto
+</p>
+~~~
+
+- CSS
+~~~css
+.error{
+    padding: 10px;
+    color: crimson;
+    border: 1px dotted crimson;
+}
+.success{
+    padding: 10px;
+    color: limegreen;
+    border: 1px dotted limegreen;
+}
+~~~
+
+- Javascript
+
+~~~javascript
+const content = document.querySelector('p');
+//mostra as classe que um elemento
+console.log(content.classList);
+
+content.classList.add('error');
+
+content.classList.remove('error');
+
+content.classList.add('success');
+
+~~~
