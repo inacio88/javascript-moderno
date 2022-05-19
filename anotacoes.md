@@ -684,7 +684,7 @@ title.style.margin = '';
 
 - HTML
 ~~~html
-<h1> Título </h1>
+<h1 class="titulo"> Título </h1>
 <p class="error">
     Texto Texto Texto Texto Texto Texto Texto Texto Texto
 </p>
@@ -716,5 +716,402 @@ content.classList.add('error');
 content.classList.remove('error');
 
 content.classList.add('success');
+
+const title = document.querySelector(".title");
+
+//Add essa classe se não tiver
+title.classList.toggle('teste');
+//Remove essa classe se já tiver
+title.classList.toggle('teste');
+
+~~~
+
+
+
+#### Parents, chidren and siblings
+
+- Tags filhas (no mesmo nível) de um mesmo node são siblings
+- parent é uma tag logo acima no DOM. 
+<br>
+<br>
+
+- HTML
+~~~html
+    
+    <article>
+        <h1 class="title">Teste</h1>
+        <p>Texto texto error texto</p>
+        <p>Texto texto texto</p>
+        <p>Texto texto success texto</p>
+        <p>Texto texto texto</p>
+        <div>Texto texto error texto</div>
+    </article>
+
+~~~
+
+- Pegar filhas de um elemento na árvore DOM
+~~~javascript
+const article = document.querySelector('article');
+//isso é uma html colection e não dá para usar forEach
+console.log(article.children);
+
+//converter para um array e já percorrer
+
+Array.from(article.children).forEach(child =>{
+    child.classList.add('article-element');
+});
+
+//Descobrir quem é parent da tag h2
+const title = document.querySelector('h2');
+console.log(title.parentElement);
+//Parent do parent
+console.log(title.parentElement.parentElement);
+
+//Sibling element
+console.log(title.nextElementSibling);
+console.log(title.previousElementSibling);
+~~~
+
+#### Events and event listeners
+
+- HTML
+
+~~~html
+<h1> Todos </h1>
+
+    <ul>
+        <li> buy milk</li>
+        <li> read a book</li>
+        <li> play the guitar</li>
+        <li> play the bills</li>
+    </ul>
+
+<button> Click </button>
+~~~
+
+- CSS
+~~~css
+li{
+    list-style-type: none;
+    max-width: 200px;
+    padding: 8px;
+    margin: 8px auto;
+    background: #eee;
+    border: 1px dotted #ddd;
+}
+~~~
+
+~~~javascript
+const button = document.querySelector('button');
+
+button.addEventListener('click', () =>{
+    console.log('botão foi clicado');
+});
+
+const items = document.querySelectorAll('li');
+items.forEach(item =>{
+    item.addEventListener('click', e =>{
+        //console.log("item foi clicado");
+        console.log(e);
+        console.log(e.target);
+        console.log(item);
+
+        e.target.style.textDecoration = 'line-through';
+
+    });
+});
+
+~~~
+
+- Deletando elementos depois de clicar
+~~~javascript
+const items = document.querySelectorAll('li');
+items.forEach(item =>{
+    item.addEventListener('click', e =>{
+    
+        e.target.remove();
+
+    });
+});
+
+~~~
+
+- Adicionando elementos depois de clicar
+~~~javascript
+const button = document.querySelector('button');
+
+button.addEventListener('click', () => {
+    //ul.innerHTML += '<li> Novo item </li>';
+    const li = document.createElement('li');
+    li.textContent = 'algo novo para fazer';
+    ul.append(li); //Coloca no fim
+    ul.prepend(li);//Colcoca no topo
+});
+
+const items = document.querySelectorAll('li');
+items.forEach(item =>{
+    item.addEventListener('click', e =>{
+    
+        e.target.remove();
+
+    });
+});
+
+~~~
+
+
+#### Event bubbling and delegation
+
+1. Event bubbling
+    - Se um elemento tem um evento e esse evento é disparado, o elemento pai na árvore DOM também será disparado.
+    - Para isso não acontecer precisa usar: e.stopPropagation()
+
+- HTML
+
+~~~html
+<h1> Todos </h1>
+
+    <ul>
+        <li> buy milk</li>
+        <li> read a book</li>
+        <li> play the guitar</li>
+        <li> play the bills</li>
+    </ul>
+
+<button> Click </button>
+~~~
+
+- CSS
+~~~css
+li{
+    list-style-type: none;
+    max-width: 200px;
+    padding: 8px;
+    margin: 8px auto;
+    background: #eee;
+    border: 1px dotted #ddd;
+}
+~~~
+~~~javascript
+const ul = document.querySelector('ul');
+const button = document.querySelector('button');
+
+button.addEventListener('click', () => {
+    const li = document.createElement('li');
+    li.textContent = 'algo novo para fazer';
+    ul.prepend(li);//Colcoca no topo
+});
+
+const items = document.querySelectorAll('li');
+items.forEach(item =>{
+    item.addEventListener('click', e =>{
+        console.log('event in LI');
+        e.stopPropagation(); // Parar o bubbling
+        e.target.remove();
+
+    });
+});
+
+ul.addEventListener('click', e => {
+    console.log('Event in UL evento pai do li');
+});
+
+~~~
+
+2. Event delegation
+    - attach eventListeners to various elements
+
+
+~~~javascript
+const ul = document.querySelector('ul');
+const button = document.querySelector('button');
+
+button.addEventListener('click', () => {
+    const li = document.createElement('li');
+    li.textContent = 'algo novo para fazer';
+    ul.prepend(li);//Colcoca no topo
+});
+
+
+ul.addEventListener('click', e => {
+    if (e.target.tagName === 'LI'){
+        e.target.remove();
+    }
+});
+
+~~~
+
+#### Mais eventos
+
+- HTML
+~~~HTML
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JavaScript</title>
+  <style>
+    .box{
+      width: 200px;
+      height: 200px;
+      margin: 10px 0;
+      background: #eee;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="copy-me">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+  <div class="box">move the mouse around this box</div>
+
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+
+  <script src="sandbox.js"></script>
+</body>
+</html>
+~~~
+
+- JavaScript
+
+~~~javascript
+const copy = document.querySelector(.'copy-me');
+copy.addEventListener('copy', () => {
+    console.log('não pode copiar esse conteúdo');
+});
+
+const box = document.querySelector('.box');
+
+box.addEventListener('mousemove', e => {
+    console.log(e.offsetX, e.offsetY);
+    box.textContent = `x pos - ${e.offsetX} y pos - ${e.offsetY}`;
+});
+
+
+document.addEventListener('wheel', e => {
+    console.log(e.pageX, e.pageY);
+});
+
+~~~
+
+
+### Making a popup
+- HTML
+~~~html
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles.css">
+  <title>JavaScript</title>
+  <style>
+    
+  </style>
+</head>
+<body>
+
+  <button>Click me</button>
+
+  <div class="popup-wrapper">
+
+    <div class="popup">
+      <div class="popup-close">x</div>
+      <div class="popup-content">
+        <h2>NINJA SALE!!</h2>
+        <p>50% off all ninja clothing. don't miss out!</p>
+        <a href="#">view clothing</a>
+      </div>
+    </div>
+    
+  </div>
+  
+  <script src="sandbox.js"></script>
+</body>
+</html>
+~~~
+
+- CSS
+
+~~~css
+button{
+    display: block;
+    margin: 20px auto;
+    background: crimson;
+    color: white;
+    border: 0;
+    padding: 6px 10px;
+}
+
+.popup-wrapper{
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.popup{
+    font-family: arial;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 10% auto;
+    padding: 20px;
+    background: white;
+    position: relative;
+}
+
+.popup a{
+    background: crimson;
+    color: white;
+    text-decoration: none;
+    padding: 6px 10px;
+}
+
+.popup-close{
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+}
+
+~~~
+- JavaScript
+~~~javascript
+const button = document.querySelector('button');
+const popup = document.querySelector('.popup-wrapper');
+const close = document.querySelector('.popup-close');
+
+button.addEventListener('click', () =>{
+    popup.style.display = 'block';
+});
+
+
+close.addEventListener('click', () =>{
+    popup.style.display = 'none';
+});
+
+popup.addEventListener('click', () =>{
+    popup.style.display = 'none';
+});
 
 ~~~
