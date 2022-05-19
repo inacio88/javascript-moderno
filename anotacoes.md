@@ -1115,3 +1115,187 @@ popup.addEventListener('click', () =>{
 });
 
 ~~~
+
+
+### Forms and Forms Events
+
+- HTML
+
+~~~html
+<body>
+    <form class="signup-form">
+        <input type="text" id="username" placeholder="username">
+    
+        <input type="submit" value="submit">
+        
+
+    </form>
+
+</body>
+~~~
+
+- CSS
+~~~css
+body{
+    backround: #eee;
+}
+
+form{
+    max-width: 200px;
+    margin: 40px auto;
+    background: white;
+    padding: 10px;
+}
+input{
+    display: block;
+    margin: 10px auto;
+    padding: 4px;
+}
+~~~
+- JS
+~~~javascript
+const form = document.querySelector('.signup-form');
+//const username = documet.querySelector('#username');//id
+
+form.addEventListener('submit', e => {
+    e.preventDefault();//Não deixa o comportamento normal de recarregar a pagina quando clica no botão
+    //console.log(username.value);
+    console.log(form.username.value);
+
+    const name = 'shaun';
+    const pattern = /^[a-z]{6,}$/;
+
+    let result = pattern.test(username);
+    console.log(result);
+
+    if (result){
+        console.log('o teste regex passou');
+    }
+
+    //modo alternativo e retorna integer
+    // 0 se f
+    let result = username.search(pattern);
+    console.log(result);
+});
+~~~
+
+- Regex
+https://regex101.com/
+
+#### Basic form validation
+- HTML
+~~~html
+<body>
+    <form class="signup-form">
+        <input type="text" id="username" placeholder="username">
+    
+        <input type="submit" value="submit">
+
+        <div class="feedback"></div>
+        
+
+    </form>
+
+</body>
+~~~
+
+- JS
+~~~javascript
+const form = document.querySelector('.signup-form');
+const feedback = document.querySelector('.feedback');
+form.addEventListener('submit', e =>{
+    e.preventDefault();
+    //validation
+    const username = form.username.value;
+    const usernamePattern = /^[a-zA-Z]{6,12}$/;
+
+    if(usernamePattern.test(username)){
+        // feedback good info
+        feedback.textContent = 'Esse nome é válido';
+    }
+    else{
+        //feedback help info
+        feedback.textContent = 'Esse nome precisa de apenas letras e ser entre 6 e 12 caracteres';
+    }
+});
+
+~~~
+
+#### keyboard events
+- CSS
+~~~css
+body{
+    backround: #eee;
+}
+
+form{
+    max-width: 200px;
+    margin: 40px auto;
+    background: white;
+    padding: 10px;
+}
+input{
+    display: block;
+    margin: 10px auto;
+    padding: 4px;
+}
+.success{
+    border: 2px solid limegreen;
+}
+.error{
+    border: 2px solid crimson;
+}
+~~~
+- HTML
+~~~html
+<body>
+    <form class="signup-form">
+        <input type="text" id="username" placeholder="username">
+    
+        <input type="submit" value="submit">
+
+        <div class="feedback"></div>
+        
+
+    </form>
+
+</body>
+~~~
+
+- JS
+~~~javascript
+const form = document.querySelector('.signup-form');
+const feedback = document.querySelector('.feedback');
+form.addEventListener('submit', e =>{
+    e.preventDefault();
+    //validation
+    const username = form.username.value;
+    const usernamePattern = /^[a-zA-Z]{6,12}$/;
+
+    if(usernamePattern.test(username)){
+        // feedback good info
+        feedback.textContent = 'Esse nome é válido';
+    }
+    else{
+        //feedback help info
+        feedback.textContent = 'Esse nome precisa de apenas letras e ser entre 6 e 12 caracteres';
+    }
+});
+
+//live feedback
+form.username.addEventListener('keyup', e =>{
+    console.log(e.target.value, form.username.value);
+    const usernamePattern = /^[a-zA-Z]{6,12}$/;
+    
+    if (usernamePattern.test(e.target.value)){
+        console.log('passou');
+        form.username.setAttribute('class', 'success');
+    }
+    else{
+        console.log('não passou no teste');
+        form.username.setAttribute('class', 'error');
+    }
+
+});
+
+~~~
