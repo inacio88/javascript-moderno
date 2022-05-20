@@ -1299,3 +1299,25 @@ form.username.addEventListener('keyup', e =>{
 });
 
 ~~~
+
+
+### The window object
+
+
+- É o objeto global
+- o document está dentro do window
+
+~~~javascript
+//Vai disparar uma vez
+window.setTimeout(() =>{
+ aler('tempo esgotado');
+}, 3000); //tempo em milissegundos
+
+//Vai disparar várias vezes
+setInterval(() =>{
+    console.log('oi');
+}, 1000);
+
+//scroll to the top
+scrollTo(0,0);
+~~~
