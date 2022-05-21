@@ -1321,3 +1321,32 @@ setInterval(() =>{
 //scroll to the top
 scrollTo(0,0);
 ~~~
+
+
+
+### Array methods
+
+- Se retornar true, mantém
+- Se false, remove
+- Esse método é nondestructive - não muda o original
+~~~javascript
+const scores = [12, 43, 64, 32, 55, 33, 1];
+
+const filteredScores = scores.filter((score) =>{
+    return score > 20;
+    //vai ficar só os valores maiores que 20
+});
+
+~~~
+- Deixar só os usuários premium
+~~~javascript
+const users = [
+    {name: 'shaun', premium: true},
+    {name: 'yoshi', premium: false},
+    {name: 'mario', premium: false},
+    {name: 'chin-li', premium: true}
+];
+
+const premiumUsers = users.filter(user => user.premium);
+
+~~~
