@@ -1350,3 +1350,203 @@ const users = [
 const premiumUsers = users.filter(user => user.premium);
 
 ~~~
+
+#### Map method
+- nondestructive method
+- itera num array, e retorna um valor atualizado para valor do array, e insere esse valor atualizado no novo array
+
+
+
+~~~javascript
+const prices = [12, 41, 54, 12, 10, 20, 90];
+
+const salePrices = prices.map((price) => {
+    return price/2;
+})
+
+console.log(salePrices)
+~~~
+O mesmo código em uma linha: 
+
+~~~javascript
+const prices = [12, 41, 54, 12, 10, 20, 90];
+
+const salePrices = prices.map(price => price/2);
+
+console.log(salePrices)
+~~~
+Mais exemplo
+- Se for acima de 30, muda apenas o preço pela metade
+
+~~~javascript
+const products = [
+  {name: 'gold star', price: 20},
+  {name: 'mushroom', price: 40},
+  {name: 'green shells', price: 30},
+  {name: 'banana skin', price: 10},
+  {name: 'red shells', price: 50}
+];
+
+const slaProducts = products.map((product) => {
+    if (product.price > 30){
+        return {name: product.name, price: product.price/2};
+    }
+    else {
+        return product;
+    }
+})
+
+~~~
+
+#### Reduce method
+- Retorna qualquer valor desejado baseado no valor do array
+
+~~~javascript
+const scores = [10, 20, 30, 40 , 50 , 60 ,70, 80];
+const result = socres.reduce((acumulador, atual)=>{
+        if (atual > 50){
+            acumulador++;
+        }
+        return acumulador;
+}, 0); //zero é o valor inicial do acumulador
+
+console.log(acumulador);//Quantidade de números maiores que 50
+~~~
+
+Mais exemplo
+- Total de pontos do mario
+~~~javascript
+const scores = [
+  {player: 'mario', score: 50},
+  {player: 'yoshi', score: 30},
+  {player: 'mario', score: 70},
+  {player: 'crystal', score: 60}
+];
+
+
+const marioTotal = scores.reduce((acumulador, atual)=>{
+    if (atual.player === 'mario'){
+        acumulador += atual.score
+    }
+    return acumulador;
+}, 0);
+
+console.log(marioTotal);
+
+~~~
+
+#### Find method
+
+- Retorna o primeiro valor do vetor que passa num teste dentro da callback function
+- Ele não necessariamente percorre o vetor inteiro, no primeiro true, o método para
+~~~javascript
+const scores = [10, 20, 30, 40 , 50 , 60 ,70, 80];
+
+const firstHighScore = scores.find((score)=>{
+    return score > 70;
+})
+~~~
+
+Em uma linha:
+
+~~~javascript
+const scores = [10, 20, 30, 40 , 50 , 60 ,70, 80];
+
+const firstHighScore = scores.find(score => score > 70);
+~~~
+
+
+#### Sort Method
+- Altera o array original
+- destructive
+
+~~~javascript
+
+const names = ['mario', 'shaun', 'chun-li', 'yoshi', 'luigi'];
+// Organiza alfabeticamente
+names.sort();
+
+//Reverter a ordem que está no vetor
+names.reverse();
+
+const scores = [10, 50, 20, 5, 35, 70, 45];
+
+scores.sort((a,b) => b - a);
+
+
+const players = [
+  {name: 'mario', score: 20},
+  {name: 'luigi', score: 10},
+  {name: 'chun-li', score: 50},
+  {name: 'yoshi', score: 30},
+  {name: 'shaun', score: 70}
+];
+
+
+//Organizar os objevtos baseado nos pontos
+// Checa os dois valores consecutivos no array
+// Se o a deve vir primeiro, retorna um valor negativo
+// Se o b deve vir primeiro, retorna um valor positivo
+// zero se não tiver nenhuma ação
+players.sort((a, b) =>{ 
+    if (a.score > b.score){
+        return -1;
+    }
+    else if (b.socre > a.score){
+        return 1;
+    }
+    else {
+        return 0;
+    }
+})
+
+
+//Outra forma de fazer
+//O resultado da subtração vai determinar
+players.sort((a, b) => b.score - a.score)
+
+~~~
+
+
+#### Chaining array methods
+
+
+~~~javascript
+
+const products = [
+  {name: 'gold star', price: 30},
+  {name: 'green shell', price: 10},
+  {name: 'red shell', price: 40},
+  {name: 'banana skin', price: 5},
+  {name: 'mushroom', price: 50}
+];
+
+//Duas coisas vão ser feitas:
+//1° Filtrar produtos que não são maiores que 20
+//2° Pegar esse array filtrado e mapear em um novo array
+
+const promos = products
+    .filter(product => product > 20)
+    .map(product => `the ${product.name} is ${product.price / 2} pounds`);
+
+console.log(promos)
+
+
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
