@@ -1534,19 +1534,185 @@ console.log(promos)
 
 ~~~
 
+### Date and Times
+
+
+~~~javascript
+const now = new Date();
+
+console.log(now);
+
+console.log('getFullyear', now.getFullYear());
+console.log('getMonth', now.getMonth());//comeca do 0
+console.log('getDate', now.getDate());
+console.log('getDay', now.getDay()); //domingo é zero
+console.log('getHours', now.getHours());
+console.log('getMinutes', now.getMinutes());
+console.log('getSeconds', now.getSeconds());
+
+
+//Timestamp
+
+console.log('timestamp', now.getTime())
+
+
+//Date strings
+console.log(now.toDateString());
+console.log(now.toTimeString());
+console.log(now.toLocaletring());
+
+~~~
+
+#### Timestamps
+
+- Criar uma data que não seja agora (now)
+
+~~~javascript
+const before = new Date('February 1 2019 7:30:59')
+const now = new Date()
+const diff = now.getTime() - before.getTime();
+console.log(diff)
+
+
+const mins = Math.round(diff / 1000 / 60); // Minutos
+console.log(mins);
+const hours = Math.round(mins / 60)); // Horas
+const days = Math.round(hours / 24); // Dias
+
+//Outra forma
+
+const timestamp = 16759338474990;
+console.log(new Date(timestamp));
+
+~~~
+
+- Fazendo um relógio
+- HTML
+
+~~~html
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dates</title>
+  <style>
+    body{
+      background: #333;
+    }
+    .clock{
+      font-size: 4em;
+      text-align: center;
+      margin: 200px auto;
+      color: yellow;
+      font-family: arial;
+    }
+    .clock span{
+      padding: 20px;
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="clock"></div>
+
+  <script src="sandbox.js"></script>
+</body>
+</html>
+~~~
+- O js
+~~~javascript
+const clock = document.querySelector('.clock');
+
+const tick = () => {
+    const now = new Date();
+    const h = now.getHours();
+    const m = now.getMinutes();
+    const s = now.getSeconds();
+
+    const html = `
+        <span> ${h} </span>
+        <span> ${m} </span>
+        <span> ${s} </span>
+    `
+    clock.innerHTML = html;
+}
+
+setInterval(tick, 1000);//Chamar a função a cada segundo
+
+~~~
+
+
+#### date-fns
+- https://date-fns.org/
+- ifAfter
+- isBefore
+- isDate
+- isEqual
+- Várias funções para lidar com datas
+
+~~~html
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dates</title>
+</head>
+<body>
+
+  <div class="clock"></div>
+
+  <script src="http://cdn.date-fns.org/v1.9.0/date_fns.min.js"></script>
+  <script src="sandbox.js"></script>
+</body>
+</html>
+~~~
 
 
 
+~~~javascript
+const now = new Date();
+console.log(dateFns.isToday(now)); //Retorna boolean
+// Formatando opções de data
+console.log(dateFns.format(now, 'YYYY'));
+console.log(dateFns.format(now, 'MM'));
+// Ano
+// y	44, 1, 1900, 2017	
+// yo	44th, 1st, 0th, 17th	
+// yy	44, 01, 00, 17	5
+// yyy	044, 001, 1900, 2017	
+// yyyy	0044, 0001, 1900, 2017
+// Mês
+// M	1, 2, ..., 12	
+// Mo	1st, 2nd, ..., 12th	
+// MM	01, 02, ..., 12	
+// MMM	Jan, Feb, ..., Dec	
+// MMMM	January, February, ..., December
+// Dia
+// d	1, 2, ..., 31	
+// do	1st, 2nd, ..., 31st
+// dd	01, 02, ..., 31
+console.log(dateFns.format(now, 'dddd, Do, MMMM, YYYY'));
+
+// Comparando datas
+const before = new Date('February 1 2019 12:00:00')
+console.log(dateFns.distanceInWords(now, before, {addSuffix: true}));
+
+~~~
 
 
 
+~~~javascript
+
+~~~
 
 
 
+~~~javascript
 
-
-
-
+~~~
 
 
 
