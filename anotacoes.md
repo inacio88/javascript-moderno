@@ -1705,6 +1705,10 @@ console.log(dateFns.distanceInWords(now, before, {addSuffix: true}));
 
 ### Funções async
 - Governs how we perform tasks which take some time to complete (e.g. getting data from a database)
+- JS can run ONE statement at a time, é síncrono
+
+
+![alt text](https://github.com/inacio88/javascript-moderno/blob/main/img/a12.png?raw=true)
 ~~~javascript
 
 ~~~
