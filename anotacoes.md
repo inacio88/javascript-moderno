@@ -1703,7 +1703,8 @@ console.log(dateFns.distanceInWords(now, before, {addSuffix: true}));
 ~~~
 
 
-
+### Funções async
+- Governs how we perform tasks which take some time to complete (e.g. getting data from a database)
 ~~~javascript
 
 ~~~
