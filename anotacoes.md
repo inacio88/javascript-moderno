@@ -1945,12 +1945,101 @@ getTodos('todos/shaun.json').then((data) => {
 }).catch((err) =>{
     console.log('promise reject', err);
 });
-
-
-
 ~~~
 
+#### Chaining promises
+
+
+~~~javascript
+const getTodos = (resource) => {
+    return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+    
+        request.addEventListener('readystatechange', () => {
+            if(request.readyState === 4 && request.status === 200){
+                const data = JSON.parse(request.responseText);
+                resolve(data);
+            }
+            else if(request.readyState === 4){
+                reject('could not fetch data');
+            }
+        });
+
+        request.open('GET', resource);
+        request.send();
+    });
+    
+};
+getTodos('todos/shaun.json').then((data) => {
+    console.log('promise 1 resolved', data);
+    return getTodos('todos/mario.json');
+}).then(data => {
+    console.log('promise 2 resolved')
+}).catch((err) =>{
+    console.log('promise reject', err);
+});
+~~~
+
+#### fetch api
+- implementa promise api por baixo dos panos
+- a promise só é rejeitada se tiver um erro de conexão
+    - mas o estado será de 404
+
+~~~javascript
+fetch('todos/luigi.json').then((response) +> {
+    console.log('resolved', response);
+    return response.json();
+}).then((data) =>{
+    console.log(data);
+}).catch(() =>{
+    console.log('resolved', err);
+});
+~~~
+### async and await
+- sempre retorna uma promise
+~~~javascript
+const getTodos = async () => {
+    const response = await fetch('todos/luigi.json');
+    //await keyword stops js until the promise has resolved
+    // non-blocking
+    const data = await response.json();
+    return data;
+
+};
+const test = getTodos();
+console.log(test); //promise
+
+getTodos()
+.then(data => console.log('resolved', data))
+.catch();
+~~~
+#### throwing custom errors
+~~~javascript
+const getTodos = async () => {
+    const response = await fetch('todos/luigi.json');
+    if (response.status !== 200){
+        throw new Error('cannot fetch the data');
+    }
+    const data = await response.json();
+    return data;
+
+};
+getTodos()
+.then(data => console.log('resolved', data))
+.catch(err => console.log('rejected', err.message));
+~~~
 ~~~javascript
 
 ~~~
+~~~javascript
 
+~~~
+~~~javascript
+
+~~~
+~~~javascript
+
+~~~
+~~~javascript
+
+~~~
