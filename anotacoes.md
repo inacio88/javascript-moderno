@@ -2028,12 +2028,43 @@ getTodos()
 .then(data => console.log('resolved', data))
 .catch(err => console.log('rejected', err.message));
 ~~~
-~~~javascript
 
-~~~
-~~~javascript
+### Local Storage
+- está no window.localStorage
 
+~~~javascript
+//armazernar
+localStorage.setItem('name','mario');
+localStorage.setItem('age', 50);
+//tudo aqui vai ser string
+
+//get data from local storage
+let name = localStorage.getItem('name');
+console.log(name);
+
+//updating data
+localStorage.setItem('name', 'luigi');
+
+//delete data
+localStorage.removeItem('name');
+localStorage.clear();//limpa tudo
 ~~~
+#### stringifying & parsing data
+
+~~~javascript
+const todos = [
+  {text: 'play mariokart', author: 'shaun'},
+  {text: 'buy some milk', author: 'mario'},
+  {text: 'buy some bread', author: 'luigi'}
+];
+//console.log(JSON.stringify(todos));
+localStorage.setItem('todos', JSON.stringify(todos));
+
+//retrive
+const stored = localStorage.getItem('todos');
+console.log(JSON.parse(stored));
+~~~
+### Object oriented javascript
 ~~~javascript
 
 ~~~
