@@ -2066,11 +2066,282 @@ console.log(JSON.parse(stored));
 ~~~
 ### Object oriented javascript
 ~~~javascript
+//array constructor
+const ages = new Array(20, 32, 14);
+~~~
+- quando usamos um método num tipo primitivo, numero ou string, javascript pega esse valor primitivo and wraps it temporariamente em um wrapper object. E esse objeto vai ter os metodos chamados.
+
+~~~javascript
+//recap object literal
+const userOne = {
+    username: 'carlos',
+    email: 'ca@gmail.com',
+    login(){
+        console.log('logado com sucesso');
+    },
+    logout(){
+        console.log('encerrado');
+    }
+};
+~~~
+#### Classes
+##### constructor functions
+~~~javascript
+class User{
+    constructor(username, email){
+        //set up propeties
+        this.username = username;
+        this.email = email;
+    },
+    login(){
+        console.log(`${this.username} just logged in`);
+    }
+    logout(){
+        console.log(`${this.username} just logout in`);
+    }
+}
+
+const userOne = new User('mario','mario@mail.com');
+userOne.login();
+userOne.logout();
+//the new keyword
+//1- it creates a new empty object {}
+//2- it binds the value of 'this' to new new empty object
+//3- it calls the constructor function to build the object
+~~~
+#### method chaining
+- quando um método não retorna explicitamente um valor, é retornado undefined.
+- para poder fazer encadeamento, é preciso retorna a instância do objeto.
+~~~javascript
+class User{
+    constructor(username, email){
+        //set up propeties
+        this.username = username;
+        this.email = email;
+        this.score = 0;
+    },
+    login(){
+        console.log(`${this.username} just logged in`);
+        return this;
+    }
+    logout(){
+        console.log(`${this.username} just logout in`);
+        return this;
+    }
+    incScore(){
+        this.score += 1;
+        console.log(`${this.username} has a score of ${this.score}`);
+        return this;
+    }
+}
+
+const userOne = new User('mario','mario@mail.com');
+userOne.login().incScore().incScore().logout();
+~~~
+### Class Inheritance
+
+~~~javascript
+class User{
+    constructor(username, email){
+        //set up propeties
+        this.username = username;
+        this.email = email;
+        this.score = 0;
+    },
+    login(){
+        console.log(`${this.username} just logged in`);
+        return this;
+    }
+    logout(){
+        console.log(`${this.username} just logout in`);
+        return this;
+    }
+    incScore(){
+        this.score += 1;
+        console.log(`${this.username} has a score of ${this.score}`);
+        return this;
+    }
+}
+class Admin extends User{
+    deleteUser(){
+        users = users.filter((u) =>{
+            return u.username !== user.username
+        })
+    }
+}
+const userOne = new User('mario','mario@mail.com');
+const UserTwo = new User('luigi','luigi@mail.com');
+const userThree = new User('wario','wario@mail.com');
+
+let users = [userOne, UserTwo, userThree];
+userThree.deleteuser(useerTwo)
+~~~
+#### super()
+
+~~~javascript
+class Admin extends User{
+    constructor(username, email, title){
+        super(username, email);
+        this.title = title;
+    }
+    deleteUser(){
+        users = users.filter((u) =>{
+            return u.username !== user.username
+        })
+    }
+}
+
+const userThree = new User('wario','wario@mail.com','faixa preta');
 
 ~~~
+#### constructos under the hood
+- a sintaxe class NomeClasse(){} é sintaxe sugar, o js não tem classes de verdade. O que ele tem é um modelo de protótipo
+~~~javascript
+// constructor functions
+function User(username, email){
+    this.username = username;
+    this.email = email;
+    this.login = function(){
+        console.log(`${this.username} has logged in`)
+    }
+}
+
+const userThree = new User('wario','wario@mail.com')
+
+~~~
+### prototype model
+- Every object in javascript has a prototype
+- Prototypes contain all the methods for that object type
+~~~javascript
+function User(username, email){
+    this.username = username;
+    this.email = email;
+}
+User.prototype.login = function(){
+    console.log(`${this.username} has logged in`)
+}
+
+User.prototype.logout = function(){
+    console.log(`${this.username} has logged out`)
+}
+
+const userThree = new User('wario','wario@mail.com')
+~~~
+###  prototypal inheritance
+
+~~~javascript
+function User(username, email){
+    this.username = username;
+    this.email = email;
+}
+User.prototype.login = function(){
+    console.log(`${this.username} has logged in`)
+}
+
+User.prototype.logout = function(){
+    console.log(`${this.username} has logged out`)
+}
+
+function Admin(username, email, title){
+    User.call(this, username, email);
+    this.title = title;
+}
+Admin.prototype = Object.create(User.prototype);
+
+Admin.prototype.deleteUser = function(){
+    //delete user
+
+}
+
+const userThree = new Admin('wario','wario@mail.com', 'faixa preta')
+~~~
+
+####  built-in objects
 ~~~javascript
 
 ~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
 ~~~javascript
 
 ~~~
