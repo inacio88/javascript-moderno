@@ -2260,6 +2260,16 @@ const userThree = new Admin('wario','wario@mail.com', 'faixa preta')
 ~~~javascript
 
 ~~~
+### NoSqls Databases
+- Firebase
+- SQL databases
+    - Tables
+    - Rows
+    - Columns
+- NoSQL databases
+    - Collection
+    - Documents
+    - Properties
 
 
 ~~~javascript
