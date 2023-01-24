@@ -5,4 +5,6 @@
 //     console.log(err)
 // })
 
-console.log(lala)
+// console.log(lala)
+import {lili} from "./firebase.mjs"
+console.log(lili)
