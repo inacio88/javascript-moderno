@@ -2271,28 +2271,86 @@ const userThree = new Admin('wario','wario@mail.com', 'faixa preta')
     - Documents
     - Properties
 
+### Rest parameter
+- bundle up arguments inside a function into a single array parameter
 
 ~~~javascript
+const double = (...nums) =>{
+    //faz algo
+    console.log(nums)
+    return nums.map(num => num*2)
+    //vira um array chamado nums
+}
+const result = double(1, 23, 4, 23, 5, 1, 6);
+console.log(result)//numeros em dobro
+~~~
+### Spread syntax (arrays)
 
+~~~javascript
+const people = ['carlos','roberto', 'joao'];
+console.log(...people)//vai mostrar como se fossem valores individuais
+const members = ['maria', 'jose', ...people]
+console.log(members) //vai add os elementos de um em outro
 ~~~
 
+### spread syntax objects
 
 ~~~javascript
+const person = {name:'joao', idade:23, job:'dev'};
+//como fazer um clone desse objeto?
+//ERRADO:
+const clonePerson = person;
+//isso aqui só vai fazer clonePerson apontar para person
+//CORRETO:
+const clonePerson = {...person}
+//Add novos atributos
+const clonePerson = {...person, location:'new york'}
 
 ~~~
-
+## Sets
+- Sets are a data structure in the object category
+- Segue a ideia de matemática mesmo de um uníco valor estar presente só uma vez
 
 ~~~javascript
+const namesArray = ['joao', 'maria', 'jose', 'joao']
+const namesSet = new Set(namesArray)
 
+const uniqueNames = [...namesSet]//transformando num array novamente
+
+//fazendo em uma linha
+const uniqueNames = [...new Set(namesArray)]
+
+
+const ages = new Set();
+ages.add(32);
+ages.add(22);
+
+ages.delete(22)
+ages.size//tamanho
+ages.has(22)//retorna true or false se tem ou não
+
+//remove all values
+ages.clear()
+
+//dá para usar o foreach em sets
 ~~~
 
-
+## Symbols
+- é um data type
+- nenhum pode ser igual a outro
+- primite type
+- podem ser usados com keys
 ~~~javascript
+const symbolOne = Symbol('a generic name');
+const symbolTwo = Symbol('a generic name');
 
-~~~
+const ninja = {}
+ninja.age = 20;
+ninja['belt'] = 'orange';
+ninja['belt'] = 'black';
 
-
-~~~javascript
+ninja[symbolOne] = 'nome1';
+ninja[symbolTwo] = 'nome2';
 
 ~~~
 
