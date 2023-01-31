@@ -2353,8 +2353,224 @@ ninja[symbolOne] = 'nome1';
 ninja[symbolTwo] = 'nome2';
 
 ~~~
+# Modern workflow - webpack aand babel
+- converter modern feature to browser-compatible js
+
+~~~bash
+
+ # checar se já tem instalado
+
+ node --version
+
+ # vai gerar um arquivo de "gerenciamento"
+ # package.json keep track of any packages installed
+ # Sempre fazer isso primeiro
+ npm init
+
+ # instalar o babel e --save-dev add nas dependências
+ npm install @babel/core @babel/cli --save-dev
+
+ #alguns plugins para aceitas algumas features da linguagem para o código ser traduzido corretamente
+
+ npm install @babel/preset-env --save-dev
+
+~~~
+- package.json
+~~~json
+{
+  "name": "chapter_19",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+~~~
+- Dentro de nodemodules criar um arquivo .babelrc, nele será definido quais preset serão usados
+
+~~~babel
+{
+    "presets": ["@babel/preset-env"]
+}
+~~~
+
+#### Using the babel cli
+
+- before.js
+~~~javascript
+const greet = (name) =>{
+    console.log(`ola ${nome}`)
+}
+
+greet();
+~~~
+
+~~~bash
+ node_modules/.bin/babel before.js -o after.js
+~~~
+
+- after.js
+~~~javascript
+const greet = name => {
+  console.log(`ola ${nome}`);
+};
+greet();
+
+~~~
+
+#### npm scripts and watching files
+
+- Add um script para converter o código em:
+- package.json
+~~~json
+{
+  "name": "chapter_19",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "node_modules/.bin/babel src/index.js -o dist/assets/bundle.js "
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+~~~
+
+- Para roda o script depois
+~~~bash
+ npm run babel
+~~~
+
+- Para que essa conversão seja automática, colocamos uma watch flag após o arquivo para ser monitorados
+~~~json
+ "babel": "node_modules/.bin/babel src/index.js -o dist/assets/bundle.js "
+~~~
+- Assim fica o resultado final:
+~~~json
+ "babel": "node_modules/.bin/babel src/index.js -w -o dist/assets/bundle.js "
+~~~
+
+###  Webpack
+- is a module bundler
+- ele pega vários source files e coloca num único bundle.js file
+- split the code into modules
+#### creating webpack config file
+~~~javascript
+// opções que queremo como o webpack funcione
+// é necessário node, isso não vai rodar no navegador
+const path = require('path');
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist/assets'),
+        filename: 'bundle.js'
+    }
+};
+
+~~~
+
+##### instalando webpack
+~~~bash
+ npm install webpack webpack-cli --save-dev
+
+ node_modules/.bin/webpack
+~~~
+
+- add em package.json para rodar com atalho
+~~~bash
+ npm run webpack
+~~~
+~~~json
+{
+  "name": "chapter_19",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "node_modules/.bin/babel src/index.js -w -o dist/assets/bundle.js ",
+    "webpack": "node_modules/.bin/webpack"
+    
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
+
+~~~
+
+#### default exports
+- cada arquivo pode ter só um default export
+~~~javascript
+const users = [
+    { name: 'mario', premium: true },
+    { name: 'luigi', premium: false },
+    { name: 'yoshi', premium: true },
+    { name: 'toad', premium: true },
+    { name: 'peach', premium: false }
+];
+
+  // export default users;
+
+const getPremUsers = (users) => {
+    return users.filter(user => user.premium);
+};
+
+export { getPremUsers, users as default };
+~~~
+- No outro arquivo a importação é feita assim:
+    - sem necessariamente ter o mesmo nome, no caso aqui users é igual a teste
+~~~javascript
+import teste from './data'
+
+~~~
+
+#### colocar a flag watch file no webpack igual foi feito no babel
+- -w na frente
+~~~javascript
+{
+  "name": "chapter_19",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "node_modules/.bin/babel src/index.js -w -o dist/assets/bundle.js ",
+    "webpack": "node_modules/.bin/webpack -w"
+    
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
+
+~~~
+
+### Webpack dev server
+~~~bash
+ npm install webpack-dev-server
+~~~
 
 
+~~~javascript
+
+~~~
 ~~~javascript
 
 ~~~
@@ -2373,8 +2589,6 @@ ninja[symbolTwo] = 'nome2';
 ~~~javascript
 
 ~~~
-
-
 ~~~javascript
 
 ~~~
@@ -2393,8 +2607,78 @@ ninja[symbolTwo] = 'nome2';
 ~~~javascript
 
 ~~~
+~~~javascript
+
+~~~
 
 
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
+
+
+~~~javascript
+
+~~~
 ~~~javascript
 
 ~~~
